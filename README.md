@@ -62,8 +62,8 @@ A comprehensive Android application demonstrating Google's ML Kit Vision APIs wi
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/sanjaynela/MLKitAndroid.git
-cd MLKitAndroid
+git clone https://github.com/sanjaynela/MlKitAndroid.git
+cd MlKitAndroid
 ```
 
 2. Open the project in Android Studio
