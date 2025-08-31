@@ -80,33 +80,19 @@ fun WorkoutTrackerScreen(
             if (showCamera) {
                 CameraPermissionHandler(
                     onPermissionGranted = {
-                        Box(modifier = Modifier.fillMaxSize()) {
-                            CameraPreview(
-                                onImageCaptured = { file ->
-                                    showCamera = false
-                                    
-                                    // In a real app, you would use ML Kit Pose Detection here
-                                    // For now, we'll simulate pose detection
-                                    repCount++
-                                },
-                                onError = { exception ->
-                                    showCamera = false
-                                }
-                            )
-                            
-                            IconButton(
-                                onClick = { showCamera = false },
-                                modifier = Modifier
-                                    .align(Alignment.TopEnd)
-                                    .padding(16.dp)
-                            ) {
-                                Icon(
-                                    Icons.Filled.Close,
-                                    contentDescription = "Close Camera",
-                                    tint = MaterialTheme.colorScheme.onSurface
-                                )
-                            }
-                        }
+                        CameraPreview(
+                            onImageCaptured = { file ->
+                                showCamera = false
+                                
+                                // In a real app, you would use ML Kit Pose Detection here
+                                // For now, we'll simulate pose detection
+                                repCount++
+                            },
+                            onError = { exception ->
+                                showCamera = false
+                            },
+                            onClose = { showCamera = false }
+                        )
                     }
                 )
             } else {

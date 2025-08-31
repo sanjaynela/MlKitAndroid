@@ -71,38 +71,23 @@ fun TextRecognitionScreen(
             if (showCamera) {
                 CameraPermissionHandler(
                     onPermissionGranted = {
-                        Box(modifier = Modifier.fillMaxSize()) {
-                            CameraPreview(
-                                onImageCaptured = { file ->
-                                    capturedImageFile = file
-                                    showCamera = false
-                                    
-                                    // Process the image with ML Kit
-                                    val bitmap = BitmapFactory.decodeFile(file.absolutePath)
-                                    if (bitmap != null) {
-                                        viewModel.recognizeText(bitmap)
-                                    }
-                                },
-                                onError = { exception ->
-                                    // Handle error
-                                    showCamera = false
+                        CameraPreview(
+                            onImageCaptured = { file ->
+                                capturedImageFile = file
+                                showCamera = false
+                                
+                                // Process the image with ML Kit
+                                val bitmap = BitmapFactory.decodeFile(file.absolutePath)
+                                if (bitmap != null) {
+                                    viewModel.recognizeText(bitmap)
                                 }
-                            )
-                            
-                            // Close camera button
-                            IconButton(
-                                onClick = { showCamera = false },
-                                modifier = Modifier
-                                    .align(Alignment.TopEnd)
-                                    .padding(16.dp)
-                            ) {
-                                Icon(
-                                    Icons.Filled.Close,
-                                    contentDescription = "Close Camera",
-                                    tint = MaterialTheme.colorScheme.onSurface
-                                )
-                            }
-                        }
+                            },
+                            onError = { exception ->
+                                // Handle error
+                                showCamera = false
+                            },
+                            onClose = { showCamera = false }
+                        )
                     }
                 )
             } else {

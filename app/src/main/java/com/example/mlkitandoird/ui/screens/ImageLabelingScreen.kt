@@ -62,35 +62,21 @@ fun ImageLabelingScreen(
             if (showCamera) {
                 CameraPermissionHandler(
                     onPermissionGranted = {
-                        Box(modifier = Modifier.fillMaxSize()) {
-                            CameraPreview(
-                                onImageCaptured = { file ->
-                                    capturedImageFile = file
-                                    showCamera = false
-                                    
-                                    val bitmap = BitmapFactory.decodeFile(file.absolutePath)
-                                    if (bitmap != null) {
-                                        viewModel.labelImage(bitmap)
-                                    }
-                                },
-                                onError = { exception ->
-                                    showCamera = false
+                        CameraPreview(
+                            onImageCaptured = { file ->
+                                capturedImageFile = file
+                                showCamera = false
+                                
+                                val bitmap = BitmapFactory.decodeFile(file.absolutePath)
+                                if (bitmap != null) {
+                                    viewModel.labelImage(bitmap)
                                 }
-                            )
-                            
-                            IconButton(
-                                onClick = { showCamera = false },
-                                modifier = Modifier
-                                    .align(Alignment.TopEnd)
-                                    .padding(16.dp)
-                            ) {
-                                Icon(
-                                    Icons.Filled.Close,
-                                    contentDescription = "Close Camera",
-                                    tint = MaterialTheme.colorScheme.onSurface
-                                )
-                            }
-                        }
+                            },
+                            onError = { exception ->
+                                showCamera = false
+                            },
+                            onClose = { showCamera = false }
+                        )
                     }
                 )
             } else {
