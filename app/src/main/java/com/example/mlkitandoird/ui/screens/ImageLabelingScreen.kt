@@ -19,6 +19,7 @@ import com.example.mlkitandoird.ui.components.CameraPermissionHandler
 import com.example.mlkitandoird.ui.components.CameraPreview
 import com.example.mlkitandoird.ui.viewmodel.MLKitViewModel
 import java.io.File
+import android.util.Log
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -67,12 +68,19 @@ fun ImageLabelingScreen(
                                 capturedImageFile = file
                                 showCamera = false
                                 
+                                Log.d("ImageLabelingScreen", "Image captured: ${file.absolutePath}")
+                                Log.d("ImageLabelingScreen", "File size: ${file.length()} bytes")
+                                
                                 val bitmap = BitmapFactory.decodeFile(file.absolutePath)
                                 if (bitmap != null) {
+                                    Log.d("ImageLabelingScreen", "Bitmap decoded successfully: ${bitmap.width}x${bitmap.height}")
                                     viewModel.labelImage(bitmap)
+                                } else {
+                                    Log.e("ImageLabelingScreen", "Failed to decode bitmap")
                                 }
                             },
                             onError = { exception ->
+                                Log.e("ImageLabelingScreen", "Camera error", exception)
                                 showCamera = false
                             },
                             onClose = { showCamera = false }

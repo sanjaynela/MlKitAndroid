@@ -19,6 +19,7 @@ import com.example.mlkitandoird.ui.components.CameraPermissionHandler
 import com.example.mlkitandoird.ui.components.CameraPreview
 import com.example.mlkitandoird.ui.viewmodel.MLKitViewModel
 import java.io.File
+import android.util.Log
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -59,6 +60,69 @@ fun BarcodeScanningScreen(
                 .fillMaxSize()
                 .padding(paddingValues)
         ) {
+            // Debug section
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.secondaryContainer
+                )
+            ) {
+                Column(
+                    modifier = Modifier.padding(16.dp)
+                ) {
+                    Text(
+                        text = "Debug Controls",
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        Button(
+                            onClick = { viewModel.testStateUpdate() }
+                        ) {
+                            Text("Test State Update")
+                        }
+                        Button(
+                            onClick = { viewModel.logCurrentState() }
+                        ) {
+                            Text("Log State")
+                        }
+                        Button(
+                            onClick = { viewModel.clearResults() }
+                        ) {
+                            Text("Clear Results")
+                        }
+                        Button(
+                            onClick = { 
+                                // Test ML Kit with a simple test
+                                Log.d("BarcodeScreen", "Testing ML Kit processing...")
+                                viewModel.scanBarcodes(android.graphics.Bitmap.createBitmap(100, 100, android.graphics.Bitmap.Config.ARGB_8888))
+                            }
+                        ) {
+                            Text("Test ML Kit")
+                        }
+                        Button(
+                            onClick = { 
+                                // Test ML Kit library initialization
+                                Log.d("BarcodeScreen", "Testing ML Kit library initialization...")
+                                try {
+                                    val scanner = com.google.mlkit.vision.barcode.BarcodeScanning.getClient()
+                                    Log.d("BarcodeScreen", "ML Kit library initialized successfully")
+                                } catch (e: Exception) {
+                                    Log.e("BarcodeScreen", "ML Kit library initialization failed", e)
+                                }
+                            }
+                        ) {
+                            Text("Test ML Kit Init")
+                        }
+                    }
+                }
+            }
+            
             if (showCamera) {
                 CameraPermissionHandler(
                     onPermissionGranted = {
@@ -67,12 +131,19 @@ fun BarcodeScanningScreen(
                                 capturedImageFile = file
                                 showCamera = false
                                 
+                                Log.d("BarcodeScreen", "Image captured: ${file.absolutePath}")
+                                Log.d("BarcodeScreen", "File size: ${file.length()} bytes")
+                                
                                 val bitmap = BitmapFactory.decodeFile(file.absolutePath)
                                 if (bitmap != null) {
+                                    Log.d("BarcodeScreen", "Bitmap decoded successfully: ${bitmap.width}x${bitmap.height}")
                                     viewModel.scanBarcodes(bitmap)
+                                } else {
+                                    Log.e("BarcodeScreen", "Failed to decode bitmap")
                                 }
                             },
                             onError = { exception ->
+                                Log.e("BarcodeScreen", "Camera error", exception)
                                 showCamera = false
                             },
                             onClose = { showCamera = false }

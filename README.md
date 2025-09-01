@@ -1,398 +1,166 @@
 # ML Kit Vision Android App
 
-A comprehensive Android application demonstrating Google's ML Kit Vision APIs with Jetpack Compose and Hilt dependency injection. This app showcases various computer vision capabilities including text recognition, object detection, barcode scanning, face detection, image labeling, and workout tracking.
+A comprehensive Android application demonstrating Google ML Kit's computer vision capabilities with a modern, professional camera interface.
 
-## Features
+## 🚀 Features
 
-### 🔍 Text Recognition (OCR)
-- Extract text from images and documents
-- Real-time text detection using camera
-- Support for multiple languages
-- Confidence scoring for recognized text
+### **Core ML Kit Capabilities**
+- **Text Recognition** - Extract text from images and documents
+- **Object Detection** - Detect and classify objects in images  
+- **Barcode Scanning** - Scan QR codes and barcodes
+- **Face Detection** - Detect faces and facial landmarks
+- **Image Labeling** - Classify objects in images
+- **Workout Tracker** - Track workouts with pose detection
 
-### 🎯 Object Detection
-- Detect and classify objects in images
-- Multiple object detection with bounding boxes
-- Object tracking with unique IDs
-- Real-time object recognition
+### **Enhanced Camera Component**
+- **Professional UI Design** - Modern camera app interface
+- **Capture Button** - Prominent white circular button with loading states
+- **Camera Controls** - Flash toggle, front/back camera switch
+- **Visual Guides** - Corner markers and framing overlays
+- **Capture Animation** - Smooth feedback during photo capture
+- **Permission Handling** - Integrated camera permission management
 
-### 📱 Barcode Scanning
-- Scan QR codes and various barcode formats
-- Support for multiple barcode types (CODE_128, EAN_13, QR_CODE, etc.)
-- Real-time barcode detection
-- Format identification
+## 📱 Screenshots
 
-### 👤 Face Detection
-- Detect faces in images
-- Facial landmark detection (eyes, nose, mouth, etc.)
-- Face tracking with unique IDs
-- Bounding box information
+### Home Screen
+![Home Screen](screenshots/01-home-screen.png)
+*Main ML Kit Vision home screen with 6 feature cards*
 
-### 🏷️ Image Labeling
-- Classify objects in images
-- Confidence scoring for classifications
-- Multiple label detection
-- Real-time image analysis
+### Camera Interface
+![Text Recognition Camera](screenshots/02-text-recognition-camera.png)
+*Text Recognition screen with fully functional camera component*
 
-### 💪 Workout Tracker
-- Exercise tracking with pose detection
-- Rep counting for various exercises
-- Workout session management
-- Exercise selection (Push-ups, Squats, Lunges, etc.)
+### Permission System
+![Camera Permission](screenshots/03-camera-permission.png)
+*System camera permission request dialog*
 
-## Technology Stack
+### ML Kit Results
+![Text Recognition Results](screenshots/04-text-recognition-results.png)
+*Successfully processed text recognition with 100% confidence*
 
+## 🛠️ Technical Stack
+
+- **Language**: Kotlin
 - **UI Framework**: Jetpack Compose
+- **Architecture**: MVVM with Clean Architecture
 - **Dependency Injection**: Hilt
-- **Navigation**: Navigation Compose
-- **ML Kit APIs**: Text Recognition, Object Detection, Barcode Scanning, Face Detection, Image Labeling
+- **ML Kit**: Google ML Kit Vision APIs
 - **Camera**: CameraX
-- **Permissions**: Accompanist Permissions
-- **Image Loading**: Coil
-- **Architecture**: MVVM with Repository pattern
+- **Navigation**: Compose Navigation
+- **State Management**: StateFlow
 
-## Setup Instructions
+## 🔧 Setup & Installation
 
 ### Prerequisites
 - Android Studio Arctic Fox or later
 - Android SDK 24+ (API level 24)
-- Kotlin 1.9.0+
+- Kotlin 1.9.22
+- Compose Compiler 1.5.10
 
-### Installation
+### Dependencies
+```kotlin
+// ML Kit
+implementation("com.google.mlkit:text-recognition:16.0.0")
+implementation("com.google.mlkit:object-detection:17.0.0")
+implementation("com.google.mlkit:barcode-scanning:17.2.0")
+implementation("com.google.mlkit:face-detection:16.1.5")
+implementation("com.google.mlkit:image-labeling:17.0.7")
 
-1. Clone the repository:
-```bash
-git clone https://github.com/sanjaynela/MlKitAndroid.git
-cd MlKitAndroid
+// CameraX
+implementation("androidx.camera:camera-core:1.4.0-alpha04")
+implementation("androidx.camera:camera-camera2:1.4.0-alpha04")
+implementation("androidx.camera:camera-lifecycle:1.4.0-alpha04")
+implementation("androidx.camera:camera-view:1.4.0-alpha04")
 ```
 
-2. Open the project in Android Studio
+## 🎯 Current Status
 
-3. Sync the project with Gradle files
+### ✅ **Working Features**
+- **Camera Component**: Fully functional with professional UI
+- **Text Recognition**: Complete pipeline from capture to results
+- **Permission System**: Proper camera permission handling
+- **Navigation**: Smooth navigation between all screens
+- **UI/UX**: Modern Material 3 design
 
-4. Build and run the application
+### 🔄 **In Development**
+- **Object Detection**: Camera working, ML Kit processing needs debugging
+- **Barcode Scanning**: Camera working, ML Kit processing needs debugging  
+- **Face Detection**: Camera working, ML Kit processing needs debugging
+- **Image Labeling**: Camera working, ML Kit processing needs debugging
+- **Workout Tracker**: Camera working, ML Kit processing needs debugging
 
-### Permissions
+## 🐛 Known Issues & Debugging
 
-The app requires the following permissions:
-- Camera access for image capture
-- Storage access for saving images (optional)
+### **ML Kit Processing Issue**
+Most ML Kit features show camera interface but don't display results. This appears to be a processing pipeline issue rather than a camera problem.
 
-## Project Structure
+### **Debug Features Added**
+- Comprehensive logging throughout ML Kit pipeline
+- Debug controls in BarcodeScanningScreen
+- State update testing
+- ML Kit library initialization testing
+
+### **Debug Steps**
+1. Navigate to Barcode Scanning Screen
+2. Use debug controls to test different functionality
+3. Check Android Studio Logcat for detailed error information
+4. Look for patterns in ML Kit processing failures
+
+## 🚀 Getting Started
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/sanjaynela/MlKitAndroid.git
+   ```
+
+2. **Open in Android Studio**
+   - Open the project in Android Studio
+   - Sync Gradle files
+   - Build the project
+
+3. **Run on device/emulator**
+   - Ensure device has camera
+   - Grant camera permissions when prompted
+   - Test different ML Kit features
+
+## 📁 Project Structure
 
 ```
 app/src/main/java/com/example/mlkitandoird/
 ├── data/
-│   ├── model/
-│   │   └── MLKitResult.kt
-│   └── repository/
-│       └── MLKitRepository.kt
+│   ├── model/MLKitResult.kt          # ML Kit result data classes
+│   └── repository/MLKitRepository.kt # ML Kit processing logic
 ├── di/
-│   └── AppModule.kt
+│   └── AppModule.kt                  # Hilt dependency injection
 ├── ui/
 │   ├── components/
-│   │   ├── CameraComponent.kt
-│   │   └── PermissionComponent.kt
-│   ├── navigation/
-│   │   └── NavGraph.kt
-│   ├── screens/
-│   │   ├── HomeScreen.kt
-│   │   ├── TextRecognitionScreen.kt
-│   │   ├── ObjectDetectionScreen.kt
-│   │   ├── BarcodeScanningScreen.kt
-│   │   ├── FaceDetectionScreen.kt
-│   │   ├── ImageLabelingScreen.kt
-│   │   └── WorkoutTrackerScreen.kt
-│   ├── theme/
-│   │   ├── Color.kt
-│   │   ├── Theme.kt
-│   │   └── Type.kt
-│   └── viewmodel/
-│       └── MLKitViewModel.kt
-├── MainActivity.kt
-└── MLKitApplication.kt
+│   │   ├── CameraComponent.kt        # Enhanced camera interface
+│   │   └── PermissionComponent.kt    # Permission handling
+│   ├── screens/                      # All ML Kit feature screens
+│   ├── theme/                        # Material 3 theming
+│   └── viewmodel/MLKitViewModel.kt   # State management
+└── MLKitApplication.kt               # Hilt application class
 ```
 
-## Usage
+## 🤝 Contributing
 
-### Getting Started
-1. Launch the app
-2. Grant camera permissions when prompted
-3. Select a feature from the home screen
-4. Use the camera to capture images for analysis
+This project demonstrates modern Android development practices with ML Kit integration. Feel free to:
 
-### Text Recognition
-- Tap the camera button to capture an image
-- The app will extract and display recognized text
-- View confidence scores for each text block
+- Report issues with ML Kit processing
+- Suggest UI/UX improvements
+- Contribute to debugging efforts
+- Add new ML Kit features
 
-### Object Detection
-- Capture an image containing objects
-- View detected objects with their classifications
-- See confidence scores and tracking information
+## 📄 License
 
-### Barcode Scanning
-- Point the camera at a barcode or QR code
-- View the scanned content and format information
-- Supports various barcode types
+This project is for educational and demonstration purposes.
 
-### Face Detection
-- Capture an image with faces
-- View detected faces with landmark information
-- See bounding box coordinates
+## 🔗 Links
 
-### Image Labeling
-- Capture an image for classification
-- View detected labels with confidence scores
-- Multiple labels can be detected per image
+- **Repository**: [https://github.com/sanjaynela/MlKitAndroid](https://github.com/sanjaynela/MlKitAndroid)
+- **ML Kit Documentation**: [https://developers.google.com/ml-kit](https://developers.google.com/ml-kit)
+- **Jetpack Compose**: [https://developer.android.com/jetpack/compose](https://developer.android.com/jetpack/compose)
 
-### Workout Tracker
-- Select an exercise type
-- Start a workout session
-- Use camera for pose detection and rep counting
-- Track workout progress and statistics
+---
 
-## ML Kit Integration
-
-The app demonstrates the following ML Kit APIs:
-
-### Text Recognition
-```kotlin
-val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
-recognizer.process(image)
-    .addOnSuccessListener { visionText ->
-        // Process recognized text
-    }
-```
-
-### Object Detection
-```kotlin
-val options = ObjectDetectorOptions.Builder()
-    .setDetectorMode(ObjectDetectorOptions.STREAM_MODE)
-    .enableMultipleObjects()
-    .enableClassification()
-    .build()
-val objectDetector = ObjectDetection.getClient(options)
-```
-
-### Barcode Scanning
-```kotlin
-val scanner = BarcodeScanning.getClient()
-scanner.process(image)
-    .addOnSuccessListener { barcodes ->
-        // Process scanned barcodes
-    }
-```
-
-### Face Detection
-```kotlin
-val options = FaceDetectorOptions.Builder()
-    .setPerformanceMode(FaceDetectorOptions.PERFORMANCE_MODE_FAST)
-    .setLandmarkMode(FaceDetectorOptions.LANDMARK_MODE_ALL)
-    .build()
-val faceDetector = FaceDetection.getClient(options)
-```
-
-### Image Labeling
-```kotlin
-val labeler = ImageLabeling.getClient(ImageLabelerOptions.DEFAULT_OPTIONS)
-labeler.process(image)
-    .addOnSuccessListener { labels ->
-        // Process image labels
-    }
-```
-
-## Hilt Integration
-
-The app uses Hilt for dependency injection:
-
-### Application Class
-```kotlin
-@HiltAndroidApp
-class MLKitApplication : Application()
-```
-
-### Repository Injection
-```kotlin
-@Module
-@InstallIn(SingletonComponent::class)
-abstract class AppModule {
-    @Binds
-    @Singleton
-    abstract fun bindMLKitRepository(
-        mlKitRepositoryImpl: MLKitRepositoryImpl
-    ): MLKitRepository
-}
-```
-
-### ViewModel Injection
-```kotlin
-@HiltViewModel
-class MLKitViewModel @Inject constructor(
-    private val mlKitRepository: MLKitRepository
-) : ViewModel()
-```
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Acknowledgments
-
-- Google ML Kit team for the excellent vision APIs
-- Android team for Jetpack Compose
-- The Android community for various libraries and tools
-
-## ⚠️ Important Compatibility Notes
-
-### Compose-Kotlin Compatibility Issues
-
-This project has been configured to avoid common Compose-Kotlin compatibility issues. When working with Jetpack Compose, ensure you use compatible versions:
-
-#### Version Compatibility Table
-| Kotlin Version | Compose Compiler Version |
-|----------------|-------------------------|
-| 1.9.22         | 1.5.10                 |
-| 1.9.21         | 1.5.8                  |
-| 1.9.20         | 1.5.7                  |
-| 1.9.10         | 1.5.4                  |
-| 1.9.0          | 1.5.3                  |
-
-#### Current Configuration
-```kotlin
-// build.gradle.kts
-android {
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.10" // Matches Kotlin 1.9.22
-    }
-}
-```
-
-**Common Error**: `Incompatible Compose Compiler version`
-**Solution**: Always check the [official compatibility table](https://developer.android.com/jetpack/androidx/releases/compose-kotlin) before updating versions.
-
-### Hilt/JavaPoet Compatibility Issues
-
-This project uses Hilt 2.50 to avoid JavaPoet compatibility issues that can occur with newer versions.
-
-#### Known Issues
-- **Error**: `'java.lang.String com.squareup.javapoet.ClassName.canonicalName()'`
-- **Cause**: Version conflicts between Hilt and JavaPoet libraries
-- **Solution**: Use Hilt 2.50 instead of 2.52+
-
-#### Current Hilt Configuration
-```kotlin
-// Project-level build.gradle.kts
-plugins {
-    id("com.google.dagger.hilt.android") version "2.50" apply false
-}
-
-// App-level build.gradle.kts
-dependencies {
-    implementation("com.google.dagger:hilt-android:2.50")
-    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
-    kapt("com.google.dagger:hilt-compiler:2.50")
-}
-```
-
-#### Troubleshooting Steps
-1. **Clean project**: `./gradlew clean`
-2. **Downgrade Hilt** to version 2.50
-3. **Use direct dependencies** instead of version catalogs
-4. **Invalidate IDE caches** and restart
-
-### API Level Compatibility
-
-The project handles API level compatibility issues for modern Java APIs:
-
-#### LocalDateTime Compatibility
-**Problem**: `LocalDateTime.now()` requires API level 26, but minSdk is 24
-**Solution**: Use `System.currentTimeMillis()` with `SimpleDateFormat`
-
-```kotlin
-// Instead of LocalDateTime.now()
-val timestamp = System.currentTimeMillis()
-val formattedTime = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date(timestamp))
-```
-
-#### Required Imports
-```kotlin
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
-```
-
-### Build Configuration Best Practices
-
-#### Version Catalog vs Direct Dependencies
-- **Development**: Use direct dependencies for easier debugging
-- **Production**: Consider version catalogs for maintainability
-- **Troubleshooting**: Switch to direct dependencies when issues occur
-
-#### Plugin Declaration Pattern
-```kotlin
-// Project-level build.gradle.kts
-plugins {
-    id("com.android.application") version "8.12.1" apply false
-    id("org.jetbrains.kotlin.android") version "1.9.22" apply false
-    id("com.google.dagger.hilt.android") version "2.50" apply false
-}
-```
-
-### Quick Fix Templates
-
-#### Compose Compiler Fix
-```kotlin
-android {
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.10" // Adjust based on Kotlin version
-    }
-}
-```
-
-#### Hilt Setup
-```kotlin
-plugins {
-    id("com.google.dagger.hilt.android")
-    kotlin("kapt")
-}
-
-dependencies {
-    implementation("com.google.dagger:hilt-android:2.50")
-    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
-    kapt("com.google.dagger:hilt-compiler:2.50")
-}
-```
-
-#### API Level Compatibility
-```kotlin
-// Instead of LocalDateTime.now()
-val timestamp = System.currentTimeMillis()
-val formattedTime = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date(timestamp))
-```
-
-### Common Pitfalls to Avoid
-- ❌ Don't mix different Kotlin versions across modules
-- ❌ Don't use incompatible Compose BOM versions
-- ❌ Don't skip the `kapt` plugin when using Hilt
-- ❌ Don't use Java 8+ APIs without desugaring for minSdk < 26
-- ❌ Don't use Hilt 2.52+ without testing JavaPoet compatibility
-
-### IDE Configuration
-- Enable Gradle build cache
-- Configure proper JDK version (11 or 17)
-- Set up proper Android SDK versions
-- Configure lint rules appropriately
-
-## Related Articles
-
-- [Build Smarter Android Apps with Vision: ML Kit the Easy Way](https://medium.com/@sanjaynelagadde1992/build-smarter-android-apps-with-vision-ml-kit-the-easy-way-15a8e61e3c76)
-- [Simplifying Dependency Injection in Android Jetpack Compose with Hilt](https://medium.com/mobile-app-development-publication/simplifying-dependency-injection-in-android-jetpack-compose-with-hilt-1b42f25cf358)
+**Note**: The camera component is fully functional and provides a professional user experience. The main focus is on debugging the ML Kit processing pipeline to get all features working end-to-end.
